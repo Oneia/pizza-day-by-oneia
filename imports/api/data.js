@@ -110,8 +110,8 @@ Meteor.methods({
       }
   },
   'groupsMenu.update'(groupId, menuId, name, price, coupons){
-    check(name, String);
-    check(price, Number);
+    // check(name, String);
+    // check(price, Number);
     // console.log(groupId, menuId, name, price, coupons);
     // console.log(menuId =='ObjectId("57da81e4ba5230c2188e6e43")')
     dataGroups.update({'_id': groupId, 'menu.name': menuId}, {
