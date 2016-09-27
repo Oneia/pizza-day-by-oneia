@@ -1,0 +1,9 @@
+<template name="eventsBlock">
+	<div class="eventsBlock">
+		<ul>
+		{{#each myEvents}}
+			<li><a href="{{pathFor route='eventPage'}}"><span class="date">{{date}}</span><span class="name">			{{name}}</span></a></li>
+		{{/each}}
+		</ul>
+	</div>
+</template>

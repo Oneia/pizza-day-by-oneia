@@ -1,0 +1,22 @@
+<template name="eventCreate">
+	<div class="event-create">
+		<div class="event-create__header">
+			<div class="event__status"></div>
+		</div>
+		<div class="event-create__content row">
+			<div class="col-md-12">
+				<div class="event__name">
+					<label for="eventName">Name of the event</label>
+					<input type="text" class="form-control" name="eventName" id="eventName" placeholder="Write name of the event">
+				</div>
+				<div class="event-create__date">
+					<label for="eventDate">U should select a date of the event</label>
+					<input type="date" class="form-control"  autofocus="autofocus"  min="{{today}}"   id="eventDate">
+				</div>
+				<div class="event-create__create">
+					<button class="default-btn event-create-btn">Create event</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

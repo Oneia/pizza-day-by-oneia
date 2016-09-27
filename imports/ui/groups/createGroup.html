@@ -1,0 +1,45 @@
+<template name="createGroup">
+<div class="create-group">
+	<h2>Creating group</h2>
+	<div class="row">	
+	<form action="">
+		<div class="col-md-4">
+			<div class="step">One step</div>
+    		{{> stepOne}}
+		</div>
+		<div class="col-md-8">
+			  <div class="step">Two step</div>
+				{{> stepTwo}}
+		</div>
+		<input type="submit" id="create-group" value="Create">
+	</form>
+	</div>
+</div>
+</template>
+
+<template name="stepOne">
+	<label for="nameGroup"> Write name of the group</label>
+	<input type="text" id="nameGroup" placeholder="name of the group" required>
+	<div class="group-main-content">
+		<label>Choose a logo of the group</label>
+		<div class="create-group__logo">
+			<input type="text" placeholder="Write a src of image" required>
+		</div>
+	</div>
+</template>
+
+<template name="stepTwo">
+	<div class="create-group__users">
+		<h4>Choose a friends</h4>
+		{{#each getUsers}}
+		<li>
+			<span class="text">{{username}}</span>
+		</li>
+		{{/each}}
+		{{#each getUserss}}
+		<li>
+			<span class="text">{{name}}</span>
+		</li>
+		{{/each}}
+	</div>
+</template>

@@ -1,0 +1,41 @@
+<template name="masterTemplate">
+  <body>
+  <header class="header-main">
+      <a href="{{pathFor route='home'}}"><div class="header-main__logo"></div></a>
+      <h1>Make a pizza day</h1>
+      <div class="header-main__hello">
+        Welcome, {{currentUser}}
+      </div>
+      <a href="" class="logout"><img src="images/logout.png" alt=""><span>logout</span></a>
+    </header>
+    <div class="flex">
+      {{> leftAside}}
+      <div id="content">
+        <div class="content">
+          {{> errorsBlock}}
+            {{> yield}}
+          </div>
+      </div>
+    </div>
+    <footer class="footer-main">
+      <div class="footer-main__img"></div>
+      <div class="footer-main__author">
+        designed and production by Fancy-dev {{currentDate}}
+      </div>
+    </footer>
+  </body>
+</template>
+
+<template name="leftAside">
+  <aside class="left-aside">
+        <nav class="left-aside-nav">
+          <ul>
+            <li><a href="{{pathFor route='groups'}}">Groups</a> </li>
+            <li><a href="{{pathFor route='eventsBlock'}}">Events</a></li>
+          </ul>
+        </nav>
+    </aside>
+</template>
+
+<!-- <div class="new-event">{{newGroup}}</div>
+<div class="new-event">{{newEvent}}</div> -->

@@ -1,0 +1,47 @@
+<template name="eventPage">
+	<div class="event">
+		<div class="event__head">
+			<h1>Event {{name}}</h1>
+			<div class="event__date">Date: {{date}}</div>
+			<div class="event__status"><span>Event's status: <span class="bold"> {{status}}.</span></span> <br>
+				{{#if author}}
+					<button class="btn-send btn-primary btn" data-label="do it!">Send</button>
+				{{/if}}
+			</div>
+			<div class="event__confirmed">Event's participants already confirmed:<span class="bold">{{confirmed.counter}}/{{confirmed.full}}</span></div>
+		</div>
+		<div class="event__group-menu">
+			<table class="table table-bordered table-event">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Price</th>
+						<th>Qty.</th>
+						<th>Add</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each menu}}
+					<tr>
+						<td class="table-event-name">{{name}}</td>
+						<td class="table-event-price">{{price}}</td>
+						<td class="table-event-qty"><input type="number" class="form-control" value="0"></td>
+						<td class="td-btn"><input class="form-control" type="checkbox"></td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
+		<div class="event__btn-confirm">
+			<button class="btn-success btn">Confirm</button>
+		</div>
+		<div class="users">
+		<h4>List users</h4>
+			<ul class="list-group">
+				{{#each users}}
+				<li class="list-group-item">{{name}} 		{{#if status}}<span class="badge confirmed"> confirmed</span>{{else}} <span class="badge">waiting</span>{{/if}}</li>
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</template>

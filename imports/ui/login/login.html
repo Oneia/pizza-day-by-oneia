@@ -1,0 +1,24 @@
+<template name="login">
+	<div class="login-container">
+		<div class="form-group">
+			<label for="login-email">Email</label>
+			<input id="login-email" type="email" required>
+		</div>
+		<div class="form-group">
+			<label for="login-password">password</label>
+			<input id="login-password" type="password" required>
+		</div>
+		<div class="form-group">
+		<div class="login-text-and-button">
+    <div class="login-button single-login-button" id="login-buttons-google">
+      <div class="login-image" id="login-buttons-image-google"></div>
+      
+        <span class=" btn btn-success text-besides-image sign-in-text-google">Sign in with Google</span>
+      
+    </div>
+  </div>
+			<a href="#" id="login-button">login</a>
+			<a href="{{pathFor route='register'}}" id="">registration</a>
+		</div>
+	</div>
+</template>

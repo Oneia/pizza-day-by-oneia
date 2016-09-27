@@ -1,0 +1,14 @@
+<template name="home">
+	<div class="home">
+		<div class="create-group">
+			<a class="btn-success" href="{{pathFor route='createGroup'}}">Create new group</a>
+		</div>
+		<h5>My groups</h5>
+		<ul>
+		{{#each myGroups}}
+			<li><a href="{{pathFor route='group'}}"><img src="{{logo}}" alt=""><span>{{name}}</span></a></li>
+		{{/each}}
+		</ul>
+	</div>	
+</template>
+

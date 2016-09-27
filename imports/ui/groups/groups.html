@@ -1,0 +1,9 @@
+<template name="groups">
+	<div class="groups">
+		<ul>
+		{{#each myGroups}}
+			<li><a href="{{pathFor route='group'}}"><img src="{{logo}}" alt=""><span>{{name}}</span></a></li>
+		{{/each}}
+		</ul>
+	</div>
+</template>
