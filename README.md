@@ -22,6 +22,6 @@ in “Local Restaurant”). After ordering event creator is able to change event
 1. Meteor<br>
 2. Blaze<br>
 3. MongoDB<br>
-4. server side email notification rendering using some template engine (like handlebars)<br>
-5. implement one or more ECMAScript 2015 classes or objects using prototyping<br>
+4. server side email notification rendering by handlebars<br>
+5. Using OOP<br>
 6. ES6
