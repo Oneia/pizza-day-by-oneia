@@ -35,8 +35,8 @@ ServiceConfiguration.configurations.remove({
 
 ServiceConfiguration.configurations.insert({
   service: "google",
-  clientId: "765282170143-jluof8qjr352t3g3pm0nucu62iivgs8l.apps.googleusercontent.com",
-  secret: "BQ5Ic-fYxDl0LkeQ2PtEtgLr"
+  clientId: "484576520293-lm73256me61ka3bd8v4rvo230bnugmr5.apps.googleusercontent.com",
+  secret: "lXySqgGoCdM-KFzIOsA_Y-Yg"
 });
 
 Meteor.startup(function () {
