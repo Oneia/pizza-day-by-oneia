@@ -27,3 +27,4 @@ accounts-google
 email
 service-configuration
 meteorhacks:ssr@2.1.1
+miro:preloader

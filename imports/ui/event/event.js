@@ -45,7 +45,7 @@ Template.eventPage.helpers({
 	confirmed(){
 		let counter =0;
 		let users = thisEvent.partisipants;
-		console.log(users);
+		//console.log(users);
 		let saf = users.length;
 		for(let i =0; i< users.length; i++){
 			if(users[i].status === true){
@@ -57,6 +57,25 @@ Template.eventPage.helpers({
 			full: saf
 		}
 		return obj;
+	},
+	b(){
+		let name;
+		if( Meteor.user().username !== undefined){
+		  name =  Meteor.user().username;
+		} else if(Meteor.user().services.google.name !== undefined){
+		   name =   Meteor.user().services.google.name 
+		}
+		let users = thisEvent.partisipants;
+		let ss = _.findWhere(thisEvent.partisipants, {name : name})
+		console.log(ss);
+		return ss
+	},
+	tt(){
+		thisEvent = dataEvent.findOne({name: nameEvent});
+		console.log(thisEvent);
+		if(thisEvent.status === 'delivered'){
+			return false;
+		} else return true
 	}
 })
 
@@ -68,7 +87,7 @@ Template.eventPage.events({
 				Meteor.call('dataEvent.status', thisEvent._id, 'delivered')
 			}, 50000);
 		});
-		} else{throwError('U cant do It')}	
+		} else{throwError('All members must  confirm order.')}	
 	},
 	'click .event__btn-confirm>button': (e,t) => {
 		let name;

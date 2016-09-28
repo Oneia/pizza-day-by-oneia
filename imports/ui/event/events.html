@@ -1,9 +1,23 @@
 <template name="eventsBlock">
 	<div class="eventsBlock">
-		<ul>
+	<h1>Events</h1>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Name</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
 		{{#each myEvents}}
-			<li><a href="{{pathFor route='eventPage'}}"><span class="date">{{date}}</span><span class="name">			{{name}}</span></a></li>
-		{{/each}}
-		</ul>
+			<tr>
+				<td class="date">{{date}}</td>
+				<td class="name"><a href="{{pathFor route='eventPage'}}">{{name}}</a></td>
+				<td>{{status}}</td>
+			</tr>
+			{{/each}}
+		</tbody>
+	</table>
 	</div>
 </template>

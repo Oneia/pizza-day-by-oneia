@@ -132,42 +132,6 @@ Router.onBeforeAction('loading');
 Router.configure({
 	layoutTemplate: 'masterTemplate',
 	loadingTemplate: 'loading',
-	notFoundTemplate: 'notForund'
+	notFoundTemplate: 'notForund',
 })
 
-// Router.route('/', {name: 'home'});
-
-// Router.route('/register', {name: 'register'});
-
-// Router.route('/дщпшт', {name: 'groupCreate'});
-
-// Router.route('/groups', {name: 'groupList'});
-
-// Router.route('/groups/:_id', {
-//   name: 'groupPage',
-//   data: function() { 
-//     return Groups.findOne(this.params._id); 
-//   }
-// });
-
-// Router.route('/groups/:_id/pizza-day', {name: 'pizzaDay',
-//   data: function() { 
-//     return Groups.findOne(this.params._id); 
-//   },
-// });
-
-// //show pages content only for logged users
-// var requireLogin = function() {
-//   if (! Meteor.user()) {
-//     if (Meteor.loggingIn()) {
-//       this.render(this.loadingTemplate);
-//     } else {
-//       this.render('accessDenied');
-//     }
-//   } else {
-//     this.next();
-//   }
-// };
-
-// Router.onBeforeAction('loading');
-// Router.onBeforeAction(requireLogin, {except: 'home'});

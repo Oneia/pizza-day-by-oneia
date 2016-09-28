@@ -1,13 +1,14 @@
 body{
-	background-image: url(images/img-noise-361x370.png);
-	background-color: #33503A;
+	background-image: url(images/pizza1.jpg);
+	background-size: 100%;
+	
 	color: #000;
 }
 *:focus, *:active{
 	outline: none;
 }
 .header-main{
-	background-color: #102016;
+	background-color: rgba(0,0,0, 0.7);
 	color: #fff;
 	font-size: 20px;
 	font-weight: bold;
@@ -32,6 +33,9 @@ body{
 		font-style: italic;
 	}
 }
+.red{
+	color: red;
+}
 .footer-main{
 	&:extend(.header-main);
 	font-size: 15px;
@@ -42,6 +46,15 @@ body{
 		background-size: 100%;
 		background-image: url(images/fancyico.jpg);
 		border-radius: 50%;
+	}
+}
+.preload{
+	display: none;
+	width: 100vw;
+	height: 100vh;
+	img{
+		top: 30%;
+		left: 30%;
 	}
 }
 #content{
@@ -138,12 +151,16 @@ box-shadow: inset 18px -7px 104px 1px rgba(0,0,0,0.75);
 		border: none;
 		padding: 5px 10px;
 		padding-bottom: 7px;
-		border-top: 2px solid #A9A2A2;
-		border-bottom: 2px solid #A9A2A2;
+		border-top: 2px solid #2D2C2C;
+		border-bottom: 2px solid #2D2C2C;
 		width: 'calc(100% - 20px)';
 		display: block;
 		margin: 0 auto;
 		margin-bottom: 10px;
+		color: #000;
+		&::-webkit-input-placeholder{
+			color: #000;
+		}
 	}
 	&__logo{
 		display: flex;
@@ -507,7 +524,9 @@ label {
 }
 .flex{
 	display: flex;
+	background-color: rgba(255,255,255, 0.85);
 	overflow: hidden;
+	font-size: 20px;
 }
 .left-aside{
 	width: 20vw;
@@ -553,8 +572,16 @@ label {
 	h5{
 		text-align: center;
 		font-size: 30px;
-		color: #fff;
+		color: #000;
 		margin-top: 40px;
+	}
+	.home-info{
+		font-style: oblique;
+		font-size: 15px;
+		color: #000000;
+		h4{
+			font-weight: bold;
+		}
 	}
 	ul{
 		li{
@@ -563,7 +590,7 @@ label {
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
-				color: #fff;
+				color: #196E80;
 
 				&:hover{
 					img{
@@ -599,7 +626,7 @@ label {
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
-				color: #fff;
+				color: #545619;
 
 				&:hover{
 					img{
@@ -628,8 +655,11 @@ label {
 	}
 }
 .eventsBlock{
-	padding-left: 200px;
 	padding-top: 5vh;
+	h1{
+		text-align: center;
+		margin-bottom: 50px;
+	}
 	ul{
 		li{
 			list-style-type: none;
@@ -689,10 +719,11 @@ label {
 		text-align: center;
 		font-size: 30px;
 		font-weight: bold;
-		color: #fff;
+		color: #2A484E;
 	}
 	.list-group-item{
 		background-color: transparent;
+		border-color: #344649;
 		.confirmed{
 			background-color: #5cb85c;
 		}
@@ -703,8 +734,14 @@ input:focus{
 }
 .event{
 	&__head{
-		text-align: center;
+		//text-align: center;
 		font-size: 20px;
+		h1{
+			text-align: center;
+			span{
+				color: #21BB8E;
+			}
+		}
 		&>div{
 			margin-top: 10px;
 			margin-bottom: 10px;
@@ -752,3 +789,36 @@ input:focus{
 .groups{
 	padding-top: 20px;
 }
+.table{
+	border-color: #000 !important;
+	th{
+		border-color: #000 !important;
+	}
+	td{
+		border-color: #000 !important;
+	}
+}
+
+.loader {
+  background: none repeat scroll 0 0 #ffffff;
+  bottom: 0;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 9999; }
+  .loader .loader_inner {
+    background-image: url("images/loading.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-posirion: center center;
+    background-color: #fff;
+    height: 300px;
+    width: 400px;
+    margin-top: -30px;
+    margin-left: -30px;
+    left: 50%;
+    top: 50%;
+    position: absolute; }

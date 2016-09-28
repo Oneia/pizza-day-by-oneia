@@ -3,12 +3,25 @@
 		<div class="create-group">
 			<a class="btn-success" href="{{pathFor route='createGroup'}}">Create new group</a>
 		</div>
+		{{#if groupsYep}}
+		<div class="home-info">
+			<p>
+				<h2>Pizza Day</h2>
+				<h4>Introduction</h4>
+				You are software engineer in small development company. Every Wednesday your teammates order pizza delivery in Local Restaurant. Usually there is about 10-15 order items (pizzas, juice etc.) per order.
+				<h4>The Problem</h4>
+				After pizza was ordered you need to calculate how many $ each of your co workers owes you in order to pay pizza delivery guy. So, you need to split the check. Also, probably you noticed that you need to do same procedure every Wednesday and it is annoying. So, why not to write small app for it? Let’s press  “Create new group”.
+			</p>
+		</div>
+	{{else}}
+		
 		<h5>My groups</h5>
 		<ul>
 		{{#each myGroups}}
 			<li><a href="{{pathFor route='group'}}"><img src="{{logo}}" alt=""><span>{{name}}</span></a></li>
 		{{/each}}
 		</ul>
+	{{/if}}
 	</div>	
 </template>
 

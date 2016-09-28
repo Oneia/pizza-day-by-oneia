@@ -1,7 +1,8 @@
 <template name="eventPage">
 	<div class="event">
+	{{#if tt}}
 		<div class="event__head">
-			<h1>Event {{name}}</h1>
+			<h1>Event <span>{{name}}</span></h1>
 			<div class="event__date">Date: {{date}}</div>
 			<div class="event__status"><span>Event's status: <span class="bold"> {{status}}.</span></span> <br>
 				{{#if author}}
@@ -10,6 +11,18 @@
 			</div>
 			<div class="event__confirmed">Event's participants already confirmed:<span class="bold">{{confirmed.counter}}/{{confirmed.full}}</span></div>
 		</div>
+	   {{#if b.status}}
+	   <div>
+	   	<p>
+	   		You alredy confirmed order. Wait other members. <br> Good luck have fun.
+	   	</p>
+	   </div>
+	   {{else}}
+	   <div>
+	   	<p>
+	   		<span class="red">You must be careful becouse you cant change order!!!</span>
+	   	</p>
+	   </div>
 		<div class="event__group-menu">
 			<table class="table table-bordered table-event">
 				<thead>
@@ -35,6 +48,7 @@
 		<div class="event__btn-confirm">
 			<button class="btn-success btn">Confirm</button>
 		</div>
+	{{/if}}
 		<div class="users">
 		<h4>List users</h4>
 			<ul class="list-group">
@@ -43,5 +57,15 @@
 				{{/each}}
 			</ul>
 		</div>
+		{{else}}
+		<div>HELLO</div>
+		{{/if}}
 	</div>
 </template>
+
+<!-- <div class="event-after">
+		<h1>Event {{name}}</h1>
+		<div class="event__after"><p>
+			Event happened {{date}}. We hope pizza was appetizing and you are happy. <br>Good luck have fun.
+		</p></div>
+	</div> -->
