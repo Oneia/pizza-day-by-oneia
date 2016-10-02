@@ -4,10 +4,7 @@ Router.route('register',{
 	path: '/register',
 	template: 'register',
 	action () {
-		if(Meteor.user() !== null){
-			this.redirect('/') 
-		};
-		this.render();
+		checkLogin(Meteor.user(), this)
 	}
 });
 
@@ -16,10 +13,7 @@ Router.route('login',{
 	path: '/login',
 	template: 'login',
 	action (){
-		if(Meteor.user() !== null){
-			this.redirect('/') 
-		};
-		this.render();
+		checkLogin(Meteor.user(), this)
 	}
 });
 
@@ -30,10 +24,7 @@ Router.route('home',{
 		return [Meteor.subscribe('users')];
 	},
 	action (){
-		if(Meteor.user() === null){
-			this.redirect('/login') 
-		};
-		this.render();
+		checkLogin(Meteor.user(), this)
 	}
 })
 
@@ -42,10 +33,7 @@ Router.route('/createGroup',{
 	name: 'createGroup',
 	template: 'createGroup',
 	action (){
-		if(Meteor.user() === null){
-			this.redirect('/login') 
-		};
-		this.render();
+		checkLogin(Meteor.user(), this)
 	}
 });
 
@@ -53,10 +41,7 @@ Router.route('/groups', {
   name: 'groups',
   template: 'groups',
   action (){
-		if(Meteor.user() === null){
-			this.redirect('/login') 
-		};
-		this.render();
+		checkLogin(Meteor.user(), this)
 	}
 });
 
@@ -69,10 +54,7 @@ Router.route('/group/:name', {
 
   },
   action (){
-		if(Meteor.user() === null){
-			this.redirect('/login') 
-		};
-		this.render();
+		checkLogin(Meteor.user(), this)
 	}
 });
 
@@ -83,10 +65,7 @@ Router.route('/group/:name/createEvent', {
     return dataGroups.findOne({name: this.params.name}); 
   },
   action (){
-		if(Meteor.user() === null){
-			this.redirect('/login') 
-		};
-		this.render();
+		checkLogin(Meteor.user(), this)
 	}
 });
 
@@ -94,10 +73,7 @@ Router.route('/events', {
   name: 'eventsBlock',
   template: 'eventsBlock',
   action (){
-	if(Meteor.user() === null){
-		this.redirect('/login') 
-	};
-	this.render();
+	checkLogin(Meteor.user(), this)
 	}
 });
 
@@ -108,19 +84,21 @@ Router.route('/events/:name', {
     return dataEvent.findOne({name: this.params.name}); 
   },
   action (){
-		if(Meteor.user() === null){
-			this.redirect('/login') 
-		};
-		this.render();
+		checkLogin(Meteor.user(), this)
 	}
 });
 
-// // Router.onBeforeAction('loading');
-// Router.waitOn(()=>{
-// 	return [Meteor.subscribe('users')];	
-// })
 
 Router.configure({
 	layoutTemplate: 'masterTemplate',
 	notFoundTemplate: 'notForund',
 })
+
+function checkLogin(user, self){
+	if(user === null){
+			self.redirect('/login') 
+		} else if( user !== null){
+			self.redirect('/')
+		}
+		self.render();
+}
