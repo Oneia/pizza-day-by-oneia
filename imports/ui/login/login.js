@@ -1,29 +1,29 @@
-import { Meteor } from 'meteor/meteor';
+                                                                                                                                import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 
-import './login.html';
 import { throwError } from '../../api/data.js';
+
+import './login.html';
 
 
 Template.login.events({
-    'click #login-button': function(e,t){
-        var email = t.find('#login-email').value,
-            password = t.find('#login-password').value;
-          
-        Meteor.loginWithPassword(email,password,function(err){
-          throwError(err.reason);
-        });
-        t.find('#login-email').value = '';
-        t.find('#login-password').value = '';
+    'submit .login-form'(e){
+      e.preventDefault();
+      const target = e.target;
+      const email = target.email.value;
+      const password = target.pass.value;
+      Meteor.loginWithPassword(email,password,(err) =>{
+        throwError(err.reason);
+      });
+      target.email.value = '';
+      target.pass.value = '';
     }, 
-
-    'click #login-buttons-google': (e,t) =>{
-          Meteor.loginWithGoogle({
-              requestPermissions: ['profile', 'email']
-            }, function (err) {
-              if (err)
-                throwError(err.reason);
-            });
-
+    'click #login-buttons-google'(){
+        Meteor.loginWithGoogle({
+            requestPermissions: ['profile', 'email']
+          }, (err) => {
+            if (err)
+              throwError(err.reason);
+          });
     }   
 });

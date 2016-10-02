@@ -5,17 +5,19 @@
 		</div>
 		<div class="event-create__content row">
 			<div class="col-md-12">
-				<div class="event__name">
-					<label for="eventName">Name of the event</label>
-					<input type="text" class="form-control" name="eventName" id="eventName" placeholder="Write name of the event">
-				</div>
-				<div class="event-create__date">
-					<label for="eventDate">U should select a date of the event</label>
-					<input type="date" class="form-control"  autofocus="autofocus"  min="{{today}}"   id="eventDate">
-				</div>
-				<div class="event-create__create">
-					<button class="default-btn event-create-btn">Create event</button>
-				</div>
+				<form action="" class="event-create-form">
+					<div class="event__name">
+						<label for="eventName">Name of the event</label>
+						<input type="text" name="name" class="form-control"  id="eventName" placeholder="Write name of the event">
+					</div>
+					<div class="event-create__date">
+						<label for="eventDate">U should select a date of the event</label>
+						<input type="date" class="form-control"  name="date"  min="{{today}}"   id="eventDate">
+					</div>
+					<div class="event-create__create">
+						<input type="submit" name="Create_event" class="default-btn event-create-btn">
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

@@ -19,11 +19,11 @@
 
 <template name="stepOne">
 	<label for="nameGroup"> Write name of the group</label>
-	<input type="text" id="nameGroup" placeholder="name of the group" required>
+	<input type="text" name="name" id="nameGroup" placeholder="name of the group" required>
 	<div class="group-main-content">
 		<label>Choose a logo of the group</label>
 		<div class="create-group__logo">
-			<input type="text" placeholder="Link to your logo" required>
+			<input type="text" name="logo" placeholder="Link to your logo" required>
 		</div>
 	</div>
 </template>
@@ -34,11 +34,6 @@
 		{{#each getUsers}}
 		<li>
 			<span class="text">{{username}}</span>
-		</li>
-		{{/each}}
-		{{#each getUserss}}
-		<li>
-			<span class="text">{{name}}</span>
 		</li>
 		{{/each}}
 	</div>

@@ -6,11 +6,12 @@ import { throwError } from '../../api/data.js';
 
 
 Template.register.events({
-'submit form': (e,t) =>{
+'submit .reg-form'(e) {
 	e.preventDefault();
-    let email = t.find('#email').value;
-    let username = t.find('#username').value;
-    let password = t.find('#password').value;
+    const target = e.target;
+    const email = target.email.value;
+    const username = target.name.value;
+    const password = target.pass.value;
     if(email.match(/^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$/) === null){
     	throwError('The email must be correct')
     }
@@ -18,7 +19,9 @@ Template.register.events({
     	throwError('The password must be between 6 and 18 characters')
     } else {
 	    Accounts.createUser({username:username,password:password,email:email},(err) =>{
-	        throwError(err.reason);
+	        if(err){
+                console.log(err);
+            }
 	    });
 	}
 }

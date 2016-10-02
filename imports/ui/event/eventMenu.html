@@ -1,0 +1,26 @@
+
+<template name="tableMenu">
+	<div class="event__group-menu">
+		<table class="table table-bordered table-event">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Price</th>
+					<th>Qty.</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each menu}}
+				<tr>
+					<td class="table-event-name">{{name}}</td>
+					<td class="table-event-price">{{price}}</td>
+					<td class="table-event-qty"><input type="number" class="form-control" value="0"></td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+	<div class="event__btn-confirm">
+		<button class="btn-success btn">Confirm</button>
+	</div>
+</template>

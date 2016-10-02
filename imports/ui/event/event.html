@@ -1,6 +1,6 @@
 <template name="eventPage">
 	<div class="event">
-	{{#if tt}}
+	{{#if eventStatus}}
 		<div class="event__head">
 			<h1>Event <span>{{name}}</span></h1>
 			<div class="event__date">Date: {{date}}</div>
@@ -9,9 +9,9 @@
 					<button class="btn-send btn-primary btn" data-label="do it!">Send</button>
 				{{/if}}
 			</div>
-			<div class="event__confirmed">Event's participants already confirmed:<span class="bold">{{confirmed.counter}}/{{confirmed.full}}</span></div>
+			<div class="event__confirmed">Event's participants already confirmed:<span class="bold">{{confirmed.counter}}/{{confirmed.totalUsers}}</span></div>
 		</div>
-	   {{#if b.status}}
+	   {{#if currentUserStatus}}
 	   <div>
 	   	<p>
 	   		You alredy confirmed order. Wait other members. <br> Good luck have fun.
@@ -23,31 +23,7 @@
 	   		<span class="red">You must be careful becouse you cant change order!!!</span>
 	   	</p>
 	   </div>
-		<div class="event__group-menu">
-			<table class="table table-bordered table-event">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Price</th>
-						<th>Qty.</th>
-						<th>Add</th>
-					</tr>
-				</thead>
-				<tbody>
-					{{#each menu}}
-					<tr>
-						<td class="table-event-name">{{name}}</td>
-						<td class="table-event-price">{{price}}</td>
-						<td class="table-event-qty"><input type="number" class="form-control" value="0"></td>
-						<td class="td-btn"><input class="form-control" type="checkbox"></td>
-					</tr>
-					{{/each}}
-				</tbody>
-			</table>
-		</div>
-		<div class="event__btn-confirm">
-			<button class="btn-success btn">Confirm</button>
-		</div>
+		{{> tableMenu}}
 	{{/if}}
 		<div class="users">
 		<h4>List users</h4>
@@ -70,9 +46,3 @@
 	</div>
 </template>
 
-<!-- <div class="event-after">
-		<h1>Event {{name}}</h1>
-		<div class="event__after"><p>
-			Event happened {{date}}. We hope pizza was appetizing and you are happy. <br>Good luck have fun.
-		</p></div>
-	</div> -->

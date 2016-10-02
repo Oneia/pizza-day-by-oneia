@@ -1,7 +1,7 @@
 <template name="group">
 <div class="container-group">
 	<div class="container-group__header">
-		<h1 class="container-group__title"><img src="{{logo}}" class="bebe" alt=""> <span>{{name}}</span></h1>
+		<h1 class="container-group__title"><img src="{{logo}}"  alt=""> <span>{{name}}</span></h1>
 		<a href="#" class="btn-new-event">Create new event</a>
 	</div>
 	<div class="container-group__content row">
@@ -9,10 +9,6 @@
 			<h4>Users</h4>
 			{{#if author}}
 			<div class="container-group__users-add">
-				<!-- <form action="">
-					<input type="text" id="addUser" placeholder="Add new user">
-					<button class="btn-add-user">Add friend</button>
-				</form> -->
 				<form action="">
 					<select name="users" class="form-control" id="sel1">
 					<option value="">Add a member</option>
@@ -49,7 +45,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{#each menu}}
+					{{#each getMenu}}
 					<tr>
 						<td class="table-name"><input type="text" value="{{name}}" placeholder="{{name}}"></td>
 						<td class="table-price"><input type="number" value="{{price}}" placeholder="{{price}}"></td>
@@ -69,7 +65,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{#each menu}}
+					{{#each getMenu}}
 					<tr>
 						<td class="table-name">{{name}}</td>
 						<td class="table-price">{{price}}</td>

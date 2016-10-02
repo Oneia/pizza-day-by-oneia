@@ -1,10 +1,9 @@
-import { dataGroups } from '../api/data.js';
-import { dataEvent } from '../api/data.js';
+import { dataGroups, dataEvent } from '../api/data.js';
 
 Router.route('register',{
 	path: '/register',
 	template: 'register',
-	action: function (){
+	action () {
 		if(Meteor.user() !== null){
 			this.redirect('/') 
 		};
@@ -16,7 +15,7 @@ Router.route('register',{
 Router.route('login',{
 	path: '/login',
 	template: 'login',
-	action: function (){
+	action (){
 		if(Meteor.user() !== null){
 			this.redirect('/') 
 		};
@@ -27,7 +26,10 @@ Router.route('login',{
 Router.route('home',{
 	path: '/',
 	template: 'home',
-	action: function (){
+	waitOn(){
+		return [Meteor.subscribe('users')];
+	},
+	action (){
 		if(Meteor.user() === null){
 			this.redirect('/login') 
 		};
@@ -39,7 +41,7 @@ Router.route('/createGroup',{
 	path: '/createGroup',
 	name: 'createGroup',
 	template: 'createGroup',
-	action: function (){
+	action (){
 		if(Meteor.user() === null){
 			this.redirect('/login') 
 		};
@@ -50,7 +52,7 @@ Router.route('/createGroup',{
 Router.route('/groups', {
   name: 'groups',
   template: 'groups',
-  action: function (){
+  action (){
 		if(Meteor.user() === null){
 			this.redirect('/login') 
 		};
@@ -62,13 +64,11 @@ Router.route('/groups', {
 Router.route('/group/:name', {
   name: 'group',
   template: 'group',
-  data: function() { 
-  	//console.log(this.params);
-  	//console.log(dataGroups.findOne({name: this.params.name}));
+  data() { 
     return dataGroups.findOne({name: this.params.name}); 
 
   },
-  action: function (){
+  action (){
 		if(Meteor.user() === null){
 			this.redirect('/login') 
 		};
@@ -79,13 +79,10 @@ Router.route('/group/:name', {
 Router.route('/group/:name/createEvent', {
   name: 'eventCreate',
   template: 'eventCreate',
-  data: function() { 
-  	//console.log(this.params);
-  	//console.log(dataGroups.findOne({name: this.params.name}));
+  data() { 
     return dataGroups.findOne({name: this.params.name}); 
-
   },
-  action: function (){
+  action (){
 		if(Meteor.user() === null){
 			this.redirect('/login') 
 		};
@@ -96,24 +93,21 @@ Router.route('/group/:name/createEvent', {
 Router.route('/events', {
   name: 'eventsBlock',
   template: 'eventsBlock',
-  action: function (){
-		if(Meteor.user() === null){
-			this.redirect('/login') 
-		};
-		this.render();
+  action (){
+	if(Meteor.user() === null){
+		this.redirect('/login') 
+	};
+	this.render();
 	}
 });
 
 Router.route('/events/:name', {
   name: 'eventPage',
   template: 'eventPage',
-  data: function() { 
-  	//console.log(this.params);
-  	//console.log(dataGroups.findOne({name: this.params.name}));
+  data () { 
     return dataEvent.findOne({name: this.params.name}); 
-
   },
-  action: function (){
+  action (){
 		if(Meteor.user() === null){
 			this.redirect('/login') 
 		};
@@ -121,17 +115,12 @@ Router.route('/events/:name', {
 	}
 });
 
-
-
-
-
-
-Router.onBeforeAction('loading');
-
+// // Router.onBeforeAction('loading');
+// Router.waitOn(()=>{
+// 	return [Meteor.subscribe('users')];	
+// })
 
 Router.configure({
 	layoutTemplate: 'masterTemplate',
-	loadingTemplate: 'loading',
 	notFoundTemplate: 'notForund',
 })
-
