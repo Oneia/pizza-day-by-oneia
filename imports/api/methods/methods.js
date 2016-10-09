@@ -1,29 +1,16 @@
 import { Meteor } from 'meteor/meteor';
-import { Mongo } from 'meteor/mongo';
 import { Email } from 'meteor/email';
 import { check } from 'meteor/check';
-import { SSR, Template } from 'meteor/meteorhacks:ssr';
+import { SSR } from 'meteor/meteorhacks:ssr';
 
 import{ dataMenu, dataGroups, dataEvent, throwError} from '../data.js';
-import { sendMailNotification } from './sendEmalNotification.js'
+import { sendMailNotification } from './sendEmalNotification.js';
 
 Meteor.methods({
   'groupCreate.insert'(name, logo,users){
     check(name, String);
     check(users, Array);
-    // let menuData = dataMenu.find({}).fetch();
-    // let menu = [];
-    // for(let i =0; i< menuData.length; i++){
-    //   const name = menuData[i].name;
-    //   const price = menuData[i].price;
-    //   const id = menuData[i]._id;
-    //   menu.push({
-    //     name,
-    //     price,
-    //     id
-    //   })
-    // }
-  const username = Meteor.user().username;
+    const username = Meteor.user().username;
     dataGroups.insert({
       authorId: this.userId,
       author: username,
@@ -31,19 +18,23 @@ Meteor.methods({
       name,
       logo,
       users
-    })
+    });
   },
-  'groupsUsers.update'(id,user) {
-    check(user, String);
-     //const username = Meteor.user().username;
-    if(this.userId !== dataGroups.findOne({_id: id}).authorId){
-      throwError('Sorry, u cant add users');
-    } else {
-        dataGroups.update({
-        _id: id
-        }, {$push: { users: user}});
-      }
-  },
+  'groupsUsers.update'(groupId,user) {
+     check(groupId, String);
+     check(user, String);
+     const groupToUpdate = dataGroups.findOne({
+       _id: groupId,
+        authorId: this.userId
+     });
+     if (!!groupToUpdate) {
+       return dataGroups.update({
+         _id: groupId
+       }, {
+         $push: { users: user }
+       });
+     } else return throwError('Sorry, u cant add users');
+    },
   'groupsUsers.delete'(id,user){
     check(user, String);
     const username = Meteor.user().username;
@@ -61,25 +52,12 @@ Meteor.methods({
         name,
         price
       }
-    })
+    });
   },
-  // 'groupsMenu.update'(groupId, menuId, name, price, coupons){
-  //   // check(name, String);
-  //   // check(price, Number);
-  //   dataGroups.update({'_id': groupId, 'menu.name': menuId}, {
-  //     $set:{
-  //       'menu.$': {
-  //          name,
-  //           price,
-  //           coupons
-  //       }
-  //     }
-  //   })
-  //  },
    'dataEvent.insert'(name,date, group, partisipants){
    const username = Meteor.user().username;
     if(dataEvent.findOne({name: name}) !== undefined){
-      throw new Meteor.Error('Sry, the name is already engaged')
+      throw new Meteor.Error('Sry, the name is already engaged');
     } else {
         dataEvent.insert({
           author:username,
@@ -88,7 +66,7 @@ Meteor.methods({
           group,
           created: new Date(),
           status: 'ordering',
-          partisipants,
+          partisipants
         });
     }
    },
@@ -110,21 +88,24 @@ Meteor.methods({
           }
         }, (err) => {
           if(err){
-            throw new Meteor.Error(err)
+            throw new Meteor.Error(err);
           } else{
               sendMailNotification(id, menu, totall);
           }
-        })
+        });
       }
    },
    'dataEvent.status'(id, status){
-    dataEvent.update({'_id': id},{$set: {"status": status}})
+    dataEvent.update({'_id': id},{$set: {"status": status}});
    },
   'sendEmail'(to, from, subject, html, data) {
      check([to, from, subject], [String]);
     let htmlUser;
     if (Meteor.isServer) {
-      SSR.compileTemplate( 'htmlEmailUser', Assets.getText( html ) );
+        /* eslint-disable */
+        // eslint-disable-next-line
+      SSR.compileTemplate( 'htmlEmailUser', Assets.getText( html ) );// eslint-disable-line
+        /* eslint-enable */
       htmlUser = SSR.render("htmlEmailUser", data);
     }
     this.unblock();
@@ -135,4 +116,4 @@ Meteor.methods({
       html: htmlUser
     });
   }
-})
+});

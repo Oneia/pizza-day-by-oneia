@@ -29,7 +29,7 @@ Template.masterTemplate.events({
 		e.preventDefault();
 		Meteor.logout();
 	}
-})
+});
 
 Template.masterTemplate.onCreated(() => {
   Meteor.subscribe('users');

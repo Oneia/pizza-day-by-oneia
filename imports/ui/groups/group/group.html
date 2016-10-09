@@ -1,0 +1,48 @@
+<template name="group">
+	<div class="container-group">
+		<div class="container-group__header">
+			<h1 class="container-group__title"><img src="{{logo}}"  alt=""> <span>{{name}}</span></h1>
+			<a href="#" class="btn-new-event">Create new event</a>
+		</div>
+		<div class="container-group__content row">
+			<div class="container-group__users col-md-4">
+				<h4>Users</h4>
+				{{#if author}}
+				<div class="container-group__users-add">
+					<form action="" class="form-add-users">
+						<select name="users" class="form-control" id="sel1">
+						<option value="" selected>Add a member</option>
+							{{#each user in getUsers}}
+								<option value="{{user.username}}">{{user.username}}</option>
+							{{/each}}
+						</select>
+						<button type="submit" class="btn-add-user btn">Add friend</button>
+					</form>
+				</div>
+				<ol>
+					{{#each user in users}}
+					{{> usersList user=user id=_id}}
+					{{/each}}
+				</ol>
+				{{else}}
+				<ol>
+					<li>{{author}} </li>
+					{{#each user in users}}
+					<li>{{user}}</li>
+					{{/each}}
+				</ol>
+				{{/if}}
+			</div>
+			<div class="container-group__menu col-md-8">
+				<h4>menu</h4>
+				{{> tableEdit}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="usersList">
+	<li>{{user}}<span class="delete"></span></li>
+</template>
+
+

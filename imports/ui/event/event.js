@@ -1,71 +1,77 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { ReactiveVar } from 'meteor/reactive-var';
 
-import { dataGroups, dataEvent, throwError } from '../../api/data.js';
+import { dataMenu, dataEvent, throwError } from '../../api/data.js';
 
 import './event.html';
 import './eventMenu.js';
 
-
+Template.eventPage.onCreated(function parentOnCreated() {
+  this.menuOrder = new ReactiveVar([]);
+});
 
 Template.eventPage.helpers({
 	author(){
-		const nameEvent = Router.current().params.name;
-		const thisEvent = dataEvent.findOne({name: nameEvent});
-		let nameUser = Meteor.user().username;
-		if(thisEvent.author === nameUser){
-			return true
-		} else return false
+		return this.author === Meteor.user().username;
 	},
-	users(){
-		const nameEvent = Router.current().params.name;
-		const thisEvent = dataEvent.findOne({name: nameEvent});
-		return thisEvent.partisipants
+	menuHandler(){
+		return Template.instance().menuOrder;
+	},
+	getMenu(){
+		return dataMenu.find();
 	},
 	confirmed(){
-		const nameEvent = Router.current().params.name;
-		const thisEvent = dataEvent.findOne({name: nameEvent});
 		let counter =0;
-		let users = thisEvent.partisipants;
+		let users = this.partisipants;
 		let totalUsers = users.length;
 		for(let i =0; i< totalUsers; i++){
 			if(users[i].status === true){
 				counter++;
 			}
 		}
-		let objConfirmingUsers = {
+		return  {
 			counter,
 			totalUsers
-		}
-		return objConfirmingUsers;
+		};
 	},
 	currentUserStatus(){
-		const nameEvent = Router.current().params.name;
-		const thisEvent = dataEvent.findOne({name: nameEvent});
 		const nameUser = Meteor.user().username;
-		const users = thisEvent.partisipants;
-		let currentUser = _.findWhere(thisEvent.partisipants, {name : nameUser})
-		return currentUser.status
+		let currentUser = _.findWhere(this.partisipants, {name : nameUser});
+		return currentUser.status;
 	},                                
 	eventStatus(){
-	    const nameEvent = Router.current().params.name;
-		const thisEvent = dataEvent.findOne({name: nameEvent});
-		if(thisEvent.status === 'delivered'){
-			return false;
-		} else return true
+		return this.status !== 'delivered';
 	}
-})
+});
 
 Template.eventPage.events({
-	'click .btn-send': (e,t)=>{
-		const nameEvent = Router.current().params.name;
-		const thisEvent = dataEvent.findOne({name: nameEvent});
-		if(thisEvent.status === 'ordered'){
-			Meteor.call('dataEvent.status', thisEvent._id, 'delivering', (err)=>{if(err) {console.log(err)}
-			 else {Meteor.call('dataEvent.status', thisEvent._id, 'delivered')}
+	'click .btn-send' () {
+		if(this.status === 'ordered'){
+			Meteor.call('dataEvent.status', this._id, 'delivering', (err)=>{if(err) {throwError(err);}
+			else {Meteor.call('dataEvent.status', this._id, 'delivered');}
 		});
-		} else{throwError('All members must  confirm order.')}	
+		} else{throwError('All members must  confirm order.');}
+	},
+	'click .event__btn-confirm>button'(e){
+		e.preventDefault();
+		const username = Meteor.user().username;
+		let checkConfirm = _.where(this.partisipants, {name: username});
+		if(checkConfirm[0].status === true){throwError('Sorry, u already did it');
+		} else {
+		let menu = Template.instance().menuOrder.get();
+		let total = () =>{
+				let total = 0;
+				for(let i = 0; i<menu.length; i++){
+					total +=menu[i].price*menu[i].qty;
+				}	
+				return total;
+		};
+		Meteor.call('dataEvent.confirm', this._id, username, menu, total(),
+				(err)=>{if(err) throwError(err);}
+			);
+		}
 	}
-})
+});
 
 

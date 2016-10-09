@@ -8,12 +8,7 @@ import './groups.html';
 
 Template.groups.helpers({
 	myGroups(){
-		let name;
-		if( Meteor.user().username !== undefined){
-		  name =  Meteor.user().username;
-		} else if(Meteor.user().services.google.name !== undefined){
-		   name =   Meteor.user().services.google.name 
-		}
+		let name= Meteor.user().username;
 		return  dataGroups.find({users: name})
 	}
-})
+});

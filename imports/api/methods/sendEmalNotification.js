@@ -15,8 +15,8 @@ export const sendMailNotification = (eventId, menuToUser, totalUser) =>{
 	Meteor.call('sendEmail',
 	    mail,
 	    'blanar.vanya@gmail.com',
-	    `Hello from Piza day!`,
-	    'MailToUser.html', emailDataUser, (err)=>{	
+	    `Hello from Pizza day!`,
+	    'MailToUser.html', emailDataUser, ()=>{
 	      if(!thisEvent.partisipants.some(checkEvent)){
 	        let emailDataAuthor = {
 	          username: thisEvent.author,
@@ -29,7 +29,7 @@ export const sendMailNotification = (eventId, menuToUser, totalUser) =>{
 	        Meteor.call('sendEmail',
 	          mail,
 	          'blanar.vanya@gmail.com',
-	          `Hello from Piza day!`,
+	          `Hello from Pizza day!`,
 	          'MailToAuthor.html',emailDataAuthor, (err)=>{
 	            if(err){console.log(err)} else{
 	            Meteor.call('dataEvent.status', eventId, 'ordered')}
@@ -41,16 +41,6 @@ export const sendMailNotification = (eventId, menuToUser, totalUser) =>{
 	function checkEvent (element){
 		return element.status === false;
 	}
-	// function checkEvent(){
-	// const users = thisEvent.partisipants;
-	// for(let i =0; i< users.length; i++){
-	// 	if(users[i].status === false){
-	// 		return false
-	// 	} 
-	// }
-	// return true;
-
-	// }
 	function letTotalFromAll(){
 		const users = thisEvent.partisipants;
 		let total = 0;
@@ -60,13 +50,11 @@ export const sendMailNotification = (eventId, menuToUser, totalUser) =>{
 			for(let j =0; j<users[i].menu.length; j++){
 				menuList.push(users[i].menu[j])
 			}
-		};
+		}
 		message ={
 			total,
 			menuList
-
-		}
+		};
 		return message;
 	}
-
-}
+};

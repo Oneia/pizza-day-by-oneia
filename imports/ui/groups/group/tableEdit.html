@@ -1,0 +1,31 @@
+<template name="tableEdit">
+	<table class="table table-bordered table-condensed table__edit">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Price UAH</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{{#each item in getMenu}}
+			{{> menuItems item}}
+			{{/each}}
+		</tbody>
+	</table>
+</template>
+
+<template name="menuItems">
+	<tr>
+		{{#if edit}}
+		<td class="table-name"><input type="text" class="edit-name" value="{{name}}" placeholder="{{item.name}}"></td>
+		<td class="table-price"><input type="number" class="edit-price" value="{{price}}" placeholder="{{item.price}}"></td>
+		<td class="menu-id">{{name}}</td>
+		<td class="td-btn"><button class="table-edit table-edit__end">End of edit</button></td>
+		{{else}}
+		<td class="table-name">{{name}}</td>
+		<td class="table-price">{{price}}</td>
+		<td class="td-btn"><button class="table-edit table-edit__start">Edit</button></td>
+		{{/if}}
+	</tr>
+</template>

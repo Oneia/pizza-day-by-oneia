@@ -7,7 +7,7 @@ import './events.html';
 
 Template.eventsBlock.helpers({
 	myEvents(){
-		const userName =  Meteor.user().username;	
-		return  dataEvent.find({'partisipants.name': userName})
+		const userName =  Meteor.user().username;
+		return  dataEvent.find({'partisipants.name': userName});
 	}
-})
+});

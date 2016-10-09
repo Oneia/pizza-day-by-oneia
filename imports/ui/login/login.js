@@ -11,19 +11,19 @@ Template.login.events({
       e.preventDefault();
       const target = e.target;
       const email = target.email.value;
-      const password = target.pass.value;
-      Meteor.loginWithPassword(email,password,(err) =>{
-        throwError(err.reason);
+      const password = target.password.value;
+        Meteor.loginWithPassword(email,password,(error) =>{
+        throwError(error.reason);
       });
       target.email.value = '';
-      target.pass.value = '';
+      target.password.value = '';
     }, 
     'click #login-buttons-google'(){
         Meteor.loginWithGoogle({
             requestPermissions: ['profile', 'email']
-          }, (err) => {
-            if (err)
-              throwError(err.reason);
+          }, (error) => {
+            if (error)
+              throwError(error.reason);
           });
     }   
 });

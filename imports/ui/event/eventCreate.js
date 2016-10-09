@@ -9,24 +9,23 @@ Date.prototype.customDate = function () {
 	const curentMonth = this.getMonth();
 	let checkCurentMonth = ()=>{
 		if(curentMonth < 9){
-			return '0'
-		} else return ''
-	}
+			return '0';
+		} else return '';
+	};
     return this.getFullYear() + 
     "-" +checkCurentMonth()+ (this.getMonth()+1) +
     "-" +  this.getDate();
-}
+};
 
 Template.eventCreate.helpers({
 	today(){
-		return (new Date().customDate());
+	return new Date().customDate();
 	}
-})
+});
 
 Template.eventCreate.events({
 	'submit .event-create-form'(e) {
 		e.preventDefault();
-		const nameGroup = Router.current().params.name;
 		const target = e.target;
 		const name = target.name.value;
 		if(name.length === 0){
@@ -34,7 +33,7 @@ Template.eventCreate.events({
 		} 
 		else{
 		const date = target.date.value;
-		const groupUsers = dataGroups.findOne({name: nameGroup}).users;
+		const groupUsers = this.users;
 		let eventMembers = [];
 		for(let i = 0; i< groupUsers.length; i++){
 			let obj = {
@@ -44,12 +43,11 @@ Template.eventCreate.events({
 				totall: 0
 			};
 			eventMembers.push(obj);
-		};
-		Meteor.call('dataEvent.insert', name, date, nameGroup, eventMembers, (err)=>{
-			if(err){
-				throwError(err.result)
-			} else Router.go(`/events/${name}`)
+		}
+		Meteor.call('dataEvent.insert', name, date, this.name, eventMembers, (err)=>{
+			if(err){ throwError(err.result);
+			} else Router.go(`/events/${name}`);
 		});
 		}
 	}
-})
+});
